@@ -3,88 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding</title>
+    <title>Alejandro & Beatrice | Our Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        /* 1. Setup Scroll Snapping */
+        /* 1. Global Setup */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* Prevent default bounce */
+            overflow: hidden;
+            background-color: #2d3419;
         }
 
         .container {
             height: 100vh;
             overflow-y: scroll;
-            scroll-snap-type: y mandatory; /* This creates the "snap" effect */
+            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
         }
 
         section {
             height: 100vh;
             width: 100%;
-            scroll-snap-align: start; /* Forces the section to align to the top */
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+            color: #3e4433;
+        }
+
+        /* 2. Title Section Styling */
+        #title {
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 100%;
+            z-index: 1;
+            filter: brightness(0.99); 
+        }
+
+        .title-content {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 5vh; 
+            color: rgb(0, 0, 0); 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .date-header {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .names {
+            font-size: 4.5rem;
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* 3. General Sections Background */
+        #text, #rsvp {
+            background-color: #f8f7e5; 
+        }
+
+        /* 4. Big Day Section (Venue) Styling */
+        #venue {
+            background-image: url('venue.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll; /* Keeps image contained to this section */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             position: relative;
+            background-color: #f8f7e5; 
+            overflow: hidden;
+        }
+
+        /* Overlay to make text pop against the watercolor */
+        #venue::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.35); 
+            z-index: 1;
+        }
+
+        .venue-content {
+            position: relative;
+            z-index: 2;
             padding: 20px;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 90%;
         }
 
-        /* 2. Styling the Sections */
-        #title {
-            background: #fdf6f0;
-            color: #5d5d5d;
+        /* 5. Invitation Text Styling */
+        #text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
         }
 
-        #venue {
-            /* Replace the URL with your own photo */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover;
-            background-position: center;
-            color: white;
+        .invite-top-line {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
         }
 
-        #the_day {
-            background: #f8f8f8;
-            color: #333;
+        .invite-main-text {
+            font-size: 2.5rem; 
+            line-height: 1.2;
+            margin: 20px 0;
+            font-weight: 400;
+            max-width: 850px;
         }
 
-        #rsvp {
-            background: #e9ecef;
+        .invite-details {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* 3. Elements Styling */
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        p { font-size: 1.2rem; max-width: 80%; }
-        
-        .btn {
-            background-color: #d4a373;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .bank-details {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
         .swipe-indicator {
             position: absolute;
-            bottom: 20px; /* Distance from the bottom */
-            width: 40px;   /* Adjust size as needed */
-            opacity: 0.7;  /* Makes it slightly transparent/elegant */
+            bottom: 20px;
+            width: 30px;
+            z-index: 2;
             animation: bounce 2s infinite;
+        }
+
+        #title .swipe-indicator {
+            filter: invert(1);
         }
 
         @keyframes bounce {
@@ -92,43 +173,78 @@
             40% { transform: translateY(-10px); }
             60% { transform: translateY(-5px); }
         }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: 1px solid #3e4433;
+            text-decoration: none;
+            color: #3e4433;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #3e4433;
+            color: #f8f7e5;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <section id="title">
-        <p>Celebrate our wedding</p>
-        <hr>
-        <h1>Alejandro<br>&<br>Beatrice</h1>
-        <hr>
-        <p>In the Philippines!</p>
+        <div class="title-content">
+            <div class="date-header">— 03.20.2027 —</div>
+            <h1 class="names">Alejandro & Beatrice</h1>
+            <p class="tagline">We’re Getting Married!</p>
+        </div>
+        <img src="background.png" alt="Beach Background" class="background-img">
         <img src="swipe_up.png" alt="Swipe up" class="swipe-indicator">
     </section>
 
     <section id="text">
-        <p>Alejandro and Bea joyfully request the pleasure of your company as we speak our vows and join in marriage in the presence of family and friends.</p>
-        <img src="swipe_up.png" alt="Swipe up" class="swipe-indicator">
+        <p class="invite-top-line">A Match Made In Heaven</p>
+        <h2 class="invite-main-text">
+            Alejandro and Beatrice joyfully request the pleasure of your company as we speak our vows and join in marriage in the presence of family and friends.
+        </h2>
+        <div class="invite-details">
+            <p>We'll start with a catholic ceremony,<br>
+            then move to the resort for the reception.</p>
+            <p>Dress code: Barong for men; Olive and Beige for women.</p>
+        </div>
     </section>
 
+    <section id="venue" style="justify-content: flex-start; padding-top: 5vh;">
+        <div class="venue-content" style="margin-top: -100px;">
+            <h2 style="font-size: 3.2rem; margin-bottom: 0;">The Big Day</h2>
+            
+            <div style="margin-bottom: 5vh;">
+                <p style="font-size: 1.3rem; font-weight: 500; margin: 0;">March 19th, 2027</p>
+                <p style="font-size: 1rem; letter-spacing: 2px; margin-top: 5px;">BOHOL, PHILIPPINES</p>
+            </div>
 
-    <section id="venue">
-        <h2>The Big Day</h2>
-        <p>March 20th, 2027</p>
-        <p>Bohol, Philippines</p>
-        <img src="swipe_up.png" alt="Swipe up" class="swipe-indicator">
-    </section>
-
-    <section id="the_day">
-        <h2>Wedding schedule</h2>
-        <p>The ceremony will take place on the Church of sto Niño<br>And the event will take place in Oceanica Resort Panglao.</p>
-        <img src="swipe_up.png" alt="Swipe up" class="swipe-indicator">
+            <div style="max-width: 600px; margin-top: 2vh;">
+                
+                <div style="margin-top: 240px; margin-bottom: 15vh;">
+                    <p style="font-size: 1.3rem; margin-bottom: 5px;"><strong>Ceremony</strong></p>
+                    <p style="font-size: 1.1rem; margin-top: 0;">Assumption of Our Lady Shrine-Parish Church</p>
+                </div>
+                
+                <div>
+                    <p style="font-size: 1.3rem; margin-bottom: 5px;"><strong>Reception</strong></p>
+                    <p style="font-size: 1.1rem; margin-top: 0;">Amorita Resort Panglao</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="rsvp">
-        <h2>Will You Join Us?</h2>
+        <h2 style="font-size: 3rem;">Will You Join Us?</h2>
         <p>Please let us know by August 1st.</p>
-        <a href="#" target="_blank" class="btn">Open RSVP Form</a>
+        <a href="#" class="btn">OPEN RSVP FORM</a>
     </section>
 </div>
 
