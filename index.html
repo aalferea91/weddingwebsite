@@ -42,6 +42,27 @@
             justify-content: center;
             overflow: hidden;
             background-color: transparent;
+            position: relative;
+        }
+
+        #title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 35vh;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(45, 52, 25, 0) 0%,
+                rgba(248, 247, 229, 0.15) 45%,
+                rgba(248, 247, 229, 0.55) 75%,
+                rgba(248, 247, 229, 1) 100%
+            );
+
+            z-index: 2;
+            pointer-events: none;
         }
 
         .background-img {
@@ -53,26 +74,26 @@
             object-fit: cover;
             object-position: center 100%;
             z-index: 1;
-            filter: brightness(0.99); 
+            filter: brightness(0.99);
         }
 
         .title-content {
             position: relative;
             z-index: 2;
-            margin-bottom: 5vh; 
+            margin-bottom: -5vh; 
             color: rgb(0, 0, 0); 
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .date-header {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             letter-spacing: 3px;
             margin-bottom: 20px;
             font-weight: 400;
         }
 
         .names {
-            font-size: 4.5rem;
+            font-size: 3.3rem;
             margin: 0;
             font-weight: 400;
             line-height: 1.1;
@@ -80,7 +101,7 @@
 
         .tagline {
             font-size: 1.4rem;
-            margin-top: 20px;
+            margin-top: 8vh;
             font-style: italic;
         }
 
@@ -91,30 +112,62 @@
 
         /* 4. Big Day Section (Venue) Styling */
         #venue {
-            background-image: url('venue.png'); 
+            background-color: #f8f7e5; 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            /* Removed background-image from here */
+        }
+
+        #venue::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30vh;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(248, 247, 229, 0) 0%,
+                rgba(248, 247, 229, 0.12) 50%,
+                rgba(248, 247, 229, 0.45) 80%,
+                rgba(248, 247, 229, 1) 100%
+            );
+
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .venue-header {
+            position: relative;
+            padding-top: 0vh;
+            z-index: 3;
+        }
+
+        .venue-image-container {
+            flex-grow: 1;
+            width: 100%;
+            position: relative;
+
+            background-image:
+                linear-gradient(
+                    to bottom,
+                    #f8f7e5 0%,
+                    rgba(248, 247, 229, 0.35) 8%,
+                    rgba(248, 247, 229, 0.15) 15%,
+                    rgba(248, 247, 229, 0) 35%
+                ),
+                url('venue.png');
+
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: scroll; /* Keeps image contained to this section */
+
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            background-color: #f8f7e5; 
-            overflow: hidden;
-        }
-
-        /* Overlay to make text pop against the watercolor */
-        #venue::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.35); 
-            z-index: 1;
         }
 
         .venue-content {
@@ -122,6 +175,23 @@
             z-index: 2;
             padding: 20px;
             max-width: 90%;
+            background: transparent;
+        }
+
+        .venue-info {
+            background: transparent;
+            position: relative;
+            z-index: 3;
+            margin-top: 30px;
+        }
+
+        /* spacing between blocks */
+        .venue-info + .venue-info {
+            margin-top: 20vh;
+        }
+
+        .reception-block {
+            margin-top: 16vh; /* adjust as needed */
         }
 
         /* 5. Invitation Text Styling */
@@ -197,12 +267,11 @@
 <div class="container">
     <section id="title">
         <div class="title-content">
-            <div class="date-header">— 03.20.2027 —</div>
+            <div class="date-header">— 19.03.2027 —</div>
             <h1 class="names">Alejandro & Beatrice</h1>
             <p class="tagline">We’re Getting Married!</p>
         </div>
         <img src="background.png" alt="Beach Background" class="background-img">
-        <img src="swipe_up.png" alt="Swipe up" class="swipe-indicator">
     </section>
 
     <section id="text">
@@ -217,27 +286,31 @@
         </div>
     </section>
 
-    <section id="venue" style="justify-content: flex-start; padding-top: 5vh;">
-        <div class="venue-content" style="margin-top: -100px;">
+    <section id="venue">
+        <div class="venue-header">
             <h2 style="font-size: 3.2rem; margin-bottom: 0;">The Big Day</h2>
-            
-            <div style="margin-bottom: 5vh;">
+            <div style="margin-bottom: 2vh;">
                 <p style="font-size: 1.3rem; font-weight: 500; margin: 0;">March 19th, 2027</p>
                 <p style="font-size: 1rem; letter-spacing: 2px; margin-top: 5px;">BOHOL, PHILIPPINES</p>
             </div>
+            <div class="venue-info">
+                <p style="font-size: 1.3rem; margin-bottom: 5px;"><strong>Ceremony</strong></p>
+                <p style="font-size: 1.1rem; margin-top: 0;">
+                    Assumption of Our Lady Shrine-Parish Church
+                </p>
+            </div>
+        </div>
+    
+        <div class="venue-image-container">
 
-            <div style="max-width: 600px; margin-top: 2vh;">
-                
-                <div style="margin-top: 240px; margin-bottom: 15vh;">
-                    <p style="font-size: 1.3rem; margin-bottom: 5px;"><strong>Ceremony</strong></p>
-                    <p style="font-size: 1.1rem; margin-top: 0;">Assumption of Our Lady Shrine-Parish Church</p>
-                </div>
-                
-                <div>
+            <div>
+        
+                <div class="reception-block">
                     <p style="font-size: 1.3rem; margin-bottom: 5px;"><strong>Reception</strong></p>
-                    <p style="font-size: 1.1rem; margin-top: 0;">Amorita Resort Panglao</p>
+                    <p style="font-size: 1.1rem; margin-top: 0;">Oceanica Resort Panglao</p>
                 </div>
             </div>
+        
         </div>
     </section>
 
